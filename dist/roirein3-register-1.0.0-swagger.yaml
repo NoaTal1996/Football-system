@@ -1,0 +1,667 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/roirein3/register/1.0.0
+info:
+  description: System API
+  version: "1.0.0"
+  title: Football Management System API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: user
+    description: Operation available to the users of the systems
+  - name: auth
+    description: Operation for authentication of users
+  - name: representive
+    description: Operation available to association representive
+  - name: player
+    description: Operation of player
+  - name: coach
+    description: Operation of coach
+  - name: team
+    description: Operation of team
+    
+paths:
+  /register:
+    post:
+      tags: 
+        - auth
+      summary: adding new user to the system
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/register"
+      responses:
+        "201":
+          description: the user has been create
+        "409":
+          description: Username taken
+  /login:
+    post:
+      tags: 
+        - auth
+      summary: registered user enter to the system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/login"
+      responses:
+        "200":
+          description: the user logged in to the system
+        "401":
+          description: wrong input parameters
+      
+  /player/{id}:
+    get:
+      tags:
+        - player
+      summary: " page of player is shown"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "name of player"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "info was given successfully"
+          content: 
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/player"
+        "404":
+          description: "player not found"
+  /player/{name}:
+    get:
+      tags:
+        - player
+      summary: " page of player is shown"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "name of player"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "info was given successfully"
+          content: 
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/player"
+        "404":
+          description: "player not found"
+  /coach/{id}:
+    get:
+      tags:
+        - coach
+      summary: " page of coach is shown"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "name of coach"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "info was given successfully"
+          content: 
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/coach"
+        "404":
+          description: "coach not found"
+  /league_details:
+    get:
+      tags: 
+        - user
+      summary: "The home page is shown"
+      responses:
+        "200":
+          description: "info was given successfully"
+          content: 
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/league_details"
+        "204":
+          description: "details not found"
+  /teamFullDetails/{team_id}:
+    get:
+      tags:
+        - team
+      summary: " page of team is shown"
+      parameters:
+      - name: "team_id"
+        in: "path"
+        description: "name of team"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "info was given successfully"
+          content: 
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/team"
+        "404":
+          description: "team not found"
+  /preview_game:
+    get:
+      tags:
+        - user
+      summary: "show the next game"
+      responses:
+        "200":
+          description: "info was given successfully"
+          content: 
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/preview_game"
+        "404":
+          description: "page not found"
+  /history_game:
+    get:
+      tags:
+        - user
+      summary: "show the array of history game"
+      responses:
+        "200":
+          description: "info was given successfully"
+          content: 
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/history_game"
+        "404":
+          description: "page not found"
+  /favored_player:
+    post:
+      tags: 
+        - user
+      summary: the player added to favorites
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/favorites_player"
+      responses:
+        "201":
+          description: "the player added to favorites"
+        "404":
+          description: "page not found"
+  /favored_team:
+    post:
+      tags: 
+        - user
+      summary: the team added to favorites
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/favorites_team"
+      responses:
+        "201":
+          description: "the team added to favorites"
+        "404":
+          description: "page not found"
+  /favored_games:
+    post:
+      tags: 
+        - user
+      summary: the game added to favorites
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: "#/components/schemas/preview_game"
+      responses:
+        "201":
+          description: "the game added to favorites"
+        "404":
+          description: "page not found"
+  /add_game:
+    post:
+      tags:
+        - representive
+      summary: game added to the system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/preview_game"
+      responses:
+        "201":
+          description: "new game added to the systems"
+        "400":
+          description: "wrong value in one parameter or more"
+  /add_result:
+    put:
+      tags:
+        - representive
+      summary: result was added to existing game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/results"
+      responses:
+        "201":
+          description: "result was added to exisitng game"
+        "400":
+          description: "game wasn't played yet"
+        "404":
+          description: "game not found"
+  /add_event_diary:
+    put:
+      tags:
+        - representive
+      summary: result was added to existing game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/event_diary"
+      responses:
+        "201":
+          description: "result was added to exisitng game"
+        "400":
+          description: "game wasn't played yet"
+        "404":
+          description: "game not found"
+  
+    
+components:
+  schemas:
+    register:
+      type: object
+      properties:
+        userName: 
+          type: string
+          minLength: 3
+          maxLength: 8
+          pattern: /[A-Za-z]/
+          description: the name of the user
+          example: ElonMusk
+        FirstName:
+          type: string
+          description: the first name of the user
+          example: Elon
+        LastName:
+          type: string
+          description: the Last name of the user
+          example: Musk
+        country:
+          type: string
+          description: the user country
+          example: Israel
+        password:
+          type: string
+          minLength: 5
+          maxLength: 10
+          pattern: '/^(?=.?[A-Za-z])(?=.?[0-9])(?=.?[@$!%*?&#])/'
+          format: password
+          description: >
+            the user's password, should be at least 5 characters and maximum 10,
+            should include at least one special character'
+          example: shiba@inu3
+        email:
+          type: string
+          format: email
+          description: user email
+          example: example@gmail.com
+        url:
+          type: string
+          format: URL
+          description: the user profile picture
+          example: https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg
+    login:
+      type: object
+      properties:
+        UserName:
+          type: string
+          description: the username of the user
+          example: ElonMusk
+        password:
+          type: string
+          format: password
+          description: the password of the user
+          example: noa@123
+    favorites_player:
+      type: object
+      properties:
+        player_name:
+          type: string
+          description: the name of the player
+          example: ronaldo
+    favorites_team:
+      type: object
+      properties:
+        player_name:
+          type: string
+          description: the name of the team
+          example: FC Barcelona
+    player:
+      type: object
+      properties:
+        full_name:
+          type: string
+          description: the full name of the player
+          example: Leo Messi
+        team_name:
+          type: string
+          description: the team of the player
+          example: FC Barcelona
+        image-url:
+          type: string
+          format: URL
+          description: the user profile picture
+          example: https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg
+        position_number:
+          type: integer
+          description: the position number of the player
+          example: 5
+        Common_name:
+          type: string
+          description: the common name of the player
+          example: Leo
+        Nationality:
+          type: string
+          description: the nationality of the player
+          example: Argentinian
+        BirthDay:
+          type: string
+          format: date
+          description: the day the player was born
+          example: '24/6/1987'
+        CountryBirth:
+          type: string
+          description: the day the player was born
+          example: Argentina
+        Height:
+          type: number
+          description: the height of the player
+          example: 1.69
+        Weight:
+          type: number
+          description: the weight of the player
+          example: 80
+    coach:
+      type: object
+      properties:
+        full_name:
+          type: string
+          description: the full name of the coach
+          example: José Mourinho
+        team_name:
+          type: string
+          description: the team of the coach
+          example: Totenham
+        image-url:
+          type: string
+          format: URL
+          description: the coach profile picture
+          example: https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg
+        Common_name:
+          type: string
+          description: the common name of the coach
+          example: The special one
+        Nationality:
+          type: string
+          description: the nationality of the coach
+          example: Portuguese
+        BirthDay:
+          type: string
+          format: date
+          description: the day the coach was born
+          example: '26/1/1963'
+        CountryBirth:
+          type: string
+          description: the day the player was born
+          example: Portugal
+    league_details:
+      type: object
+      properties:
+        league_name: 
+          type: string
+          description: the name of the league
+          example: Superliga
+        current_season_name:
+          type: string
+          description: the name of the season
+          example: 2020/2021
+        current_stage_name:
+          type: string
+          description: the name of the stage
+          example: the 12th stage
+        details_of_next_game:
+          type: object
+          description: the details of the next game
+          example: FC Barcelona vs Real Madrid, Satureday ,15/5/2021, Camp nou
+    preview_game:
+      type: object
+      properties:
+        date:
+          type: string
+          description: the date of the game
+          example: 02/09/2021
+        hour:
+          type: string
+          description: the hour of the game
+          example: 20:00
+        home_group:
+          type: string
+          description: the home group of the game
+          example: barcelona
+        away_group:
+          type: string
+          description: the away group of the game
+          example: israel
+        field:
+          type: string
+          description: the field of the game
+          example: terner
+        event_game:
+          type: array
+          items:
+          $ref: "#/components/schemas/event"
+          
+    history_game:
+      type: object
+      properties:
+        date:
+          type: string
+          description: the date of the game
+          example: 02/09/2020
+        hour:
+          type: string
+          description: the hour of the game
+          example: 20:00
+        home_group:
+          type: string
+          description: the home group of the game
+          example: barcelona
+        away_group:
+          type: string
+          description: the away group of the game
+          example: israel
+        result:
+          type: string
+          description: the result of the game
+          example: 2:1
+        events schedule:
+          type: array
+          items:
+            $ref: "#/components/schemas/event"
+          description: all the event of the game
+          example: [02/09/2020] 
+    team:
+      type: object
+      properties:
+        players:
+          type: array
+          items:
+            $ref: "#/components/schemas/player_preview"
+          description: players of team
+          example: neymar, joshue, harry
+        coach:
+          type: object
+          items:
+            $ref: "#/components/schemas/coach_preview"
+          description: coach of team
+          example: Bill
+        future_games:
+          type: array
+          items:
+            $ref: "#/components/schemas/preview_game"
+            description: future games
+            example: [02/09/2021]
+        history_games:
+          type: array
+          items:
+            $ref: "#/components/schemas/history_game"
+            description: history games
+            example: [02/09/2020]
+            
+    event:
+      type: object
+      properties:
+        date:
+          type: string
+          description: date of event 
+          example: 02/09/2020
+        hour:
+          type: string
+          description: the hour of the event
+          example: 20:00
+        minute:
+          type: integer
+          description: the minute of the event
+          example: 85
+          
+        details_event:
+          type: string
+          enum: [
+             goal,
+             foul,
+             red card,
+             yellow card,
+             offside,
+             subtitution,
+             injury]
+          description: the details of event
+          example: ticket yellow, 40 13:30
+
+    player_preview:
+      type: object
+      properties:
+        full_name:
+          type: string
+          description: the full name of the player
+          example: José Mourinho
+        Team_name:
+          type: string
+          description: the name of team
+          example: liverpol
+        image-url:
+          type: string
+          format: URL
+          description: the user profile picture
+          example: https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg
+        position:
+          type: string
+          description: position of player
+          example: 3
+    coach_preview:
+      type: object
+      properties:
+        full_name:
+          type: string
+          description: the full name of the coach
+          example: Ronald Koeman
+        Team_name:
+          type: string
+          description: the name of team
+          example: liverpol
+        image-url:
+          type: string
+          format: URL
+          description: the user profile picture
+          example: https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg
+    results:
+      type: object
+      properties:
+        home_team_name:
+          type: string
+          description: the name of the home team
+          example: FC Barcelona
+        away_team_name:
+          type: string
+          description: the name of the away team
+          example: Real Madrid
+        date:
+          type: string
+          format: date
+          description: the date of the game
+          example: 14/5/2021
+        home_goals:
+          type: integer
+          description: the score of the home team
+          example: 3
+        away_goals:
+          type: integer
+          description: the score of the away team
+          example: 1
+    event_diary:
+      type: object
+      properties:
+        home_team_name:
+          type: string
+          description: the name of the home team
+          example: FC Barcelona
+        away_team_name:
+          type: string
+          description: the name of the away team
+          example: Real Madrid
+        date:
+          type: string
+          format: date
+          description: the date of the game
+          example: 14/5/2021
+        events:
+          type: array
+          items: 
+            $ref: "#/components/schemas/event"
+          description: event list of the game
+          example: ["14/5/2021, 18:20, 50, foul, messi"]
