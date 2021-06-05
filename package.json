@@ -15,18 +15,17 @@
     "nodemon": "^2.0.7",
     "path": "^0.12.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^27.0.4",
+    "supertest": "^6.1.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Web-Development-Environments-2021/assignment-3-2-318665411_315540336.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Web-Development-Environments-2021/assignment-3-2-318665411_315540336/issues"
-  },
-  "homepage": "https://github.com/Web-Development-Environments-2021/assignment-3-2-318665411_315540336#readme"
+  "jest":{
+    "setupFiles": [
+      "./project/tests/units/test_env.js"
+    ]
+  }
 }
