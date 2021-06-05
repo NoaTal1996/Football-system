@@ -2,6 +2,7 @@ const app = require('../../main');
 const request = require('supertest')
 jest.setTimeout(100000);
 
+
 describe('Referee register is created successfully', () => {
   test('should create a new post', async () => {
     const res = await request(app)
@@ -37,7 +38,4 @@ describe('Username Taken', () => {
     expect(res.statusCode).toEqual(409)
   })
 })
-
-
-
 

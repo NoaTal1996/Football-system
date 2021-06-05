@@ -23,7 +23,7 @@
   "scripts": {
     "test": "jest"
   },
-  "jest":{
+  "jest": {
     "setupFiles": [
       "./project/tests/units/test_env.js"
     ]
