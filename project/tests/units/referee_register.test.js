@@ -1,7 +1,11 @@
 const app = require('../../main');
 const request = require('supertest')
 jest.setTimeout(100000);
-
+describe('sum', () => {
+  test('1+1', () => {
+    expect(1+1).toBe(2);
+  })
+})
 
 describe('Referee register is created successfully', () => {
   test('should create a new post', async () => {
