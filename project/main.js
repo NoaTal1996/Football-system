@@ -101,5 +101,3 @@ const server = app.listen(port, () => {
 //     server.close(() => console.log("server closed"));
 //   }
 // });
-
-console.log("hello")

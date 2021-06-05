@@ -66,16 +66,23 @@ router.get("/getAllGames", async (req, res, next)=>{
     }
 })
 
-router.get("/getAllReferees", async (req, res, next)=>{
-    try{
+router.get("/getAllReferees", async (req, res, next)=> {
+    try {
         const referees = await representive_utils.getReferees()
-        if (referees.length === 0){
-            throw {status : 204, message: "no referees in the system"}
+        if (referees.length === 0) {
+            throw {status: 204, message: "no referees in the system"}
         }
         res.status(200).send(referees)
-    }catch (error) {
-    next(error);
-}
-
+    } catch (error) {
+        next(error);
+    }
 })
+
+router.post("/createGameSchedule",async (req, res, next)=>{
+    await representive_utils.create_games_schedule(req.body.game_hours,req.body.days, req.body.start_day, req.body.end_day)
+    res.status(200).send("success")
+})
+
+
+
 module.exports = router;
