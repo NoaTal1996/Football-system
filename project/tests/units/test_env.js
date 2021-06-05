@@ -1,0 +1,7 @@
+tedious_userName="server-sadna"
+tedious_password="A123456789!"
+tedious_server="server-sadna.database.windows.net"
+tedious_database="Football-system "
+api_token="V4G1QD6ndIj8BliECt6vb5Pb05qwYoMW64pg3Q8Xhs1frMMuGRQvzTNYuK8b"
+COOKIE_SECRET="siade9ea8uw984"
+bcrypt_saltRounds = "11"

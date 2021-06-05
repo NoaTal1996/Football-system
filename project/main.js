@@ -92,14 +92,11 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500).send(err.message);
 });
 
-const server = app.listen(port, () => {
-  console.log(`Server listen on port ${port}`);
-});
-
 // process.on("SIGINT", function () {
 //   if (server) {
 //     server.close(() => console.log("server closed"));
 //   }
 // });
 
-console.log("hello")
+//console.log("hello")
+module.exports = app;
