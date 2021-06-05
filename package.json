@@ -22,5 +22,10 @@
   },
   "scripts": {
     "test": "jest"
+  },
+  "jest":{
+    "setupFiles": [
+      "./project/tests/units/test_env.js"
+    ]
   }
 }
