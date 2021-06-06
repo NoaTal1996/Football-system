@@ -19,19 +19,16 @@ async function registerTest(userName, Firstname, Lastname, Country, Password, Em
     return res;
 }
 
-// describe('Referee register is created successfully by representative', () => {
-//     test('should create a new post', async () => {
-//         const res = await registerTest("noa12304444444400056", "Test", "Test", "Israel", "shiba@inu3", "examddple@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "judge");
-//         console.log(res)
-//         expect(res.status).toEqual(201);
-//     })
-// })
-
-describe('Referee register is created successfully by representative', () => {
-    test('should create a new post', async () => {
-        const res = await registerTest("noa123", "Test", "Test", "Israel", "shiba@inu3", "example@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "judge");
-        expect(res.statusCode).toEqual(409);
-    })
-})
+describe('Referee register tests', () => {
+  test('Referee register is created successfully', async () => {
+    const res = await registerTest("sfdsgddsdsccccfdh", "Test", "Test", "Israel", "ads", "examddple@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "rep");
+    // console.log(res);
+    expect(res.statusCode).toEqual(201);
+  });  
+  test('Username Taken', async () => {
+      const res = await registerTest("noa123", "Test", "Test", "Israel", "shiba@inu3", "example@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "judge");
+      expect(res.statusCode).toEqual(409);
+  });
+});
 
 exports.registerTest = registerTest;
