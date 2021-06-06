@@ -32,4 +32,22 @@ describe('schedule games', () => {
         const res = await addgame("2022-05-22","20:00","Midtjylland","vejle","Parken","admin124483");
         expect(res.statusCode).toEqual(201);
     });
+    test('add game is not created successfully - missing values', async () => {
+        await sessionTest.post("/Login").send({
+            username: 'admin',
+            password: 'admin'
+        });
+        const res = await addgame("20:00","Midtjylland","vejle","Parken","admin124483");
+        expect(res.statusCode).toEqual(400);
+    });
+    test("add game isn't created successfully - couldn't login", async () => {
+        await sessionTest.post("/Login").send({
+            username: 'admdddin',
+            password: 'admin'
+        });
+        const res = await addgame("2022-05-22","20:00","Midtjylland","vejle","Parken","admin124483");
+        expect(res.statusCode).toEqual(401);
+    });
 });
+
+

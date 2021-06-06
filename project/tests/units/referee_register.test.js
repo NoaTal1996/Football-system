@@ -21,7 +21,7 @@ async function registerTest(userName, Firstname, Lastname, Country, Password, Em
 
 describe('Referee register tests', () => {
   test('Referee register is created successfully', async () => {
-    const res = await registerTest("sfdsgddsdsccccfdh", "Test", "Test", "Israel", "ads", "examddple@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "rep");
+    const res = await registerTest("ddddd", "Test", "Test", "Israel", "ads", "examddple@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "rep");
     // console.log(res);
     expect(res.statusCode).toEqual(201);
   });  
