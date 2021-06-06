@@ -23,7 +23,7 @@
     "supertest": "^6.1.3"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest"
   },
   "jest": {
     "setupFiles": [
