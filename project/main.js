@@ -97,5 +97,7 @@ app.use(function (err, req, res, next) {
 //     server.close(() => console.log("server closed"));
 //   }
 // });
-
+const server = app.listen(port, () => {
+    console.log(`Server listen on port ${port}`);
+});
 module.exports = app;
