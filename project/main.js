@@ -14,6 +14,7 @@ var cors = require("cors");
 var app = express();
 app.use(logger("dev")); //logger
 app.use(express.json()); // parse application/json
+axios.defaults.withCredentials = true;
 app.use(
   session({
     cookieName: "session", // the cookie key name

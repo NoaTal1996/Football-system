@@ -1,6 +1,6 @@
 const app = require('../../main');
 const request = require('supertest');
-const login = require('../units/login.test');
+const login = require('./login.test');
 jest.setTimeout(100000);
 
 async function addgame(gameday, gametime, Hometeam, Awayteam,Field,Referee){
@@ -19,9 +19,11 @@ async function addgame(gameday, gametime, Hometeam, Awayteam,Field,Referee){
 
 describe('add game is created successfully', () => {
     test('should create a new post', async () => {
-        const log = login.loginTest(admin,admin)
-        const res = await addgame("2022-05-22","20:00","Midtjylland","København","Parken","ElonMusk");
-        expect(res.statusCode).toEqual(201);
+        const log = await login.loginTest("admin","admin");
+        if(log.statusCode.toEqual(200)){
+            const res = await addgame("2022-05-22","20:00","Midtjylland","vejle","Parken","ElonMusk");
+            expect(res.statusCode).toEqual(201);
+        }
     })
 })
 
