@@ -1,11 +1,7 @@
 const app = require('../../main');
 const request = require('supertest')
 jest.setTimeout(100000);
-describe('sum', () => {
-  test('1+1', () => {
-    expect(1+1).toBe(2);
-  })
-})
+
 
 async function loginTest(userName, Password){
   const res = await request(app)
@@ -14,12 +10,6 @@ async function loginTest(userName, Password){
     username: userName,
     password: Password
   });
-  return res;
-}
-
-async function logoutTest(){
-  const res = await request(app)
-  .post('/Logout')
   return res;
 }
 
@@ -47,10 +37,4 @@ describe("shouldn't login user", () => {
   })
 })
 
-//test for sucssues logout
-describe("should logout user", () => {
-  test('should create a new post', async () => {
-    const res = await logoutTest()
-    expect(res.statusCode).toEqual(200)
-  })
-})
+exports.loginTest = loginTest;
