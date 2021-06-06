@@ -13,12 +13,6 @@ async function loginTest(userName, Password){
   return res;
 }
 
-async function logoutTest(){
-  const res = await request(app)
-  .post('/Logout')
-  return res;
-}
-
 //test for usually login
 describe('should login user', () => {
     test('should create a new post', async () => {
@@ -40,14 +34,6 @@ describe("shouldn't login user", () => {
   test('should create a new post', async () => {
     const res = await loginTest("roi", "shiba@i")
     expect(res.statusCode).toEqual(401)
-  })
-})
-
-//test for sucssues logout
-describe("should logout user", () => {
-  test('should create a new post', async () => {
-    const res = await logoutTest()
-    expect(res.statusCode).toEqual(200)
   })
 })
 
