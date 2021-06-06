@@ -20,10 +20,11 @@ async function addgame(gameday, gametime, Hometeam, Awayteam,Field,Referee){
 describe('add game is created successfully', () => {
     test('should create a new post', async () => {
         const log = await login.loginTest("admin","admin");
-        const res = await addgame("2022-05-22","20:00","Midtjylland","København","Parken","ElonMusk");
-        expect(res.statusCode).toEqual(201);
+        if(log.statusCode.toEqual(200)){
+            const res = await addgame("2022-05-22","20:00","Midtjylland","vejle","Parken","ElonMusk");
+            expect(res.statusCode).toEqual(201);
+        }
     })
 })
-
 
 exports.addgame = addgame;
