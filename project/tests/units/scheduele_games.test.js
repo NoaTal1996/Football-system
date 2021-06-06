@@ -1,6 +1,6 @@
 const app = require('../../main');
 const request = require('supertest');
-const login = require('./login.test');
+const login = require('../units/login.test');
 jest.setTimeout(100000);
 
 async function addgame(gameday, gametime, Hometeam, Awayteam,Field,Referee){
@@ -26,6 +26,5 @@ describe('add game is created successfully', () => {
         }
     })
 })
-
 
 exports.addgame = addgame;
