@@ -1,21 +1,11 @@
 const app = require('../../main');
-const request = require('supertest')
+const request = require('supertest');
+const ref = require('../units/referee_register.test');
 jest.setTimeout(100000);
 
 describe('Register and Login is created successfully', () => {
     test('should create a new post', async () => {
-        const regis = await request(app)
-            .post('/Register')
-            .send({
-                username: "adi123",
-                FirstName: "Elon",
-                LastName: "Musk",
-                country: "Israel",
-                password: "shiba@inu3",
-                email: "example@gmail.com",
-                url: "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg",
-                status: "judge"
-            })
+        const register = await ref.registerTest("roi123", "Roi", "Reinshtein", "Israel", "shiba@inu3", "example@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "judge");
         const res = await request(app)
             .post('/Login')
             .send({
