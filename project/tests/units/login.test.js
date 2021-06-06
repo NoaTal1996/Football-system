@@ -1,11 +1,7 @@
 const app = require('../../main');
 const request = require('supertest')
 jest.setTimeout(100000);
-describe('sum', () => {
-  test('1+1', () => {
-    expect(1+1).toBe(2);
-  })
-})
+
 
 async function loginTest(userName, Password){
   const res = await request(app)
@@ -54,3 +50,5 @@ describe("should logout user", () => {
     expect(res.statusCode).toEqual(200)
   })
 })
+
+exports.loginTest = loginTest;
