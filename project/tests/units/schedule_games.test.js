@@ -50,4 +50,4 @@ describe('schedule games', () => {
     });
 });
 
-
+exports.addgame = addgame;
