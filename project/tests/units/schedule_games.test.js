@@ -1,7 +1,7 @@
 const app = require('../../main');
 let session = require('supertest-session');
-const request = require('supertest')
-const log = require('./login.test');
+const representive_utils = require("../../routes/utils/representive_utils");
+const DButils = require("../../routes/utils/DButils");
 jest.setTimeout(100000);
 
 let sessionTest = null;
@@ -9,45 +9,37 @@ beforeEach(function(){
     sessionTest = session(app);
 });
 
-async function addgame(gameday, gametime, Hometeam, Awayteam, Field, Referee){
-    const res = await sessionTest
-        .post("/users/representive/addGame")
-        .send({
-            date: gameday,
-            time: gametime,
-            hometeam: Hometeam,
-            awayteam: Awayteam,
-            field: Field,
-            referee: Referee
-        });
-    return res;
-}
+// async function addgame(gameday, gametime, Hometeam, Awayteam, Field, Referee){
+//     const res = await sessionTest
+//         .post("/users/representive/addGame")
+//         .send({
+//             date: gameday,
+//             time: gametime,
+//             hometeam: Hometeam,
+//             awayteam: Awayteam,
+//             field: Field,
+//             referee: Referee
+//         });
+//     return res;
+// }
 
 describe('schedule games', () => {
-    test('add game is created successfully', async () => {
-        await sessionTest.post("/Login").send({
-            username: 'admin',
-            password: 'admin'
-        });
-        const res = await addgame("2022-05-22","20:00","Midtjylland","vejle","Parken","admin124483");
-        expect(res.statusCode).toEqual(201);
-    });
-    test('add game is not created successfully - missing values', async () => {
-        await sessionTest.post("/Login").send({
-            username: 'admin',
-            password: 'admin'
-        });
-        const res = await addgame("20:00","Midtjylland","vejle","Parken","admin124483");
-        expect(res.statusCode).toEqual(400);
-    });
-    test("add game isn't created successfully - couldn't login", async () => {
-        await sessionTest.post("/Login").send({
-            username: 'admdddin',
-            password: 'admin'
-        });
-        const res = await addgame("2022-05-22","20:00","Midtjylland","vejle","Parken","admin124483");
-        expect(res.statusCode).toEqual(401);
+    test('check insert_game function', async () => {
+        body = {
+            date: "2022-05-22",
+            time: "20:00",
+            hometeam: "Midtjylland",
+            awayteam: "vejle",
+            field: "Parken",
+            referee: "noa123"
+        };
+        await representive_utils.insert_game(body);
+        const res =  await DButils.execQuery(
+            `SELECT * FROM Games
+            WHERE GameDay = '2022-05-22' and GameTime = '20:00'
+            and field = 'Parken' and referee = 'noa123'`);
+        console.log(res);
+        expect(res.length).toBe(1);
     });
 });
 
-exports.addgame = addgame;

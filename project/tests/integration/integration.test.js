@@ -10,10 +10,19 @@ beforeEach(function(){
     sessionTest = session(app);
 }); 
 
-// await sessionTest.post("/Login").send({
-//     username: 'admdddin',
-//     password: 'admin'
-// });
+async function addgame(gameday, gametime, Hometeam, Awayteam, Field, Referee){
+    const res = await sessionTest
+        .post("/users/representive/addGame")
+        .send({
+            date: gameday,
+            time: gametime,
+            hometeam: Hometeam,
+            awayteam: Awayteam,
+            field: Field,
+            referee: Referee
+    });
+    return res;
+}
 
 describe('Integration tests', () => {
     test('Register and Login is created successfully', async () => {
@@ -43,15 +52,37 @@ describe('Integration tests', () => {
         });
         expect(res.statusCode).toEqual(406)
     });
+    test('Register and register again with the same username', async () => {
+        await regiser.registerTest("try", "Roi", "Reinshtein", "Israel", "shiba@inu3", "example@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "judge");
+        const res = await regiser.registerTest("try", "Roi", "Reinshtein", "Israel", "shiba@inu3", "example@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "judge");
+        expect(res.statusCode).toEqual(409);
+    });
+        test('add game is created successfully', async () => {
+        await sessionTest.post("/Login").send({
+            username: 'admin',
+            password: 'admin'
+        });
+        const res = await addgame("2021-05-22","20:00","Midtjylland","vejle","Parken","noa123");
+        expect(res.statusCode).toEqual(201);
+    });
+    test("add game isn't created successfully - missing values", async () => {
+        await sessionTest.post("/Login").send({
+            username: 'admin',
+            password: 'admin'
+        });
+        const res = await addgame("20:00","Midtjylland","vejle","Parken","admin124483");
+        expect(res.statusCode).toEqual(400);
+    });
+    test("add game isn't created successfully - try add with user which isn't rep", async () => {
+        await sessionTest.post("/Login").send({
+            username: 'admdddin',
+            password: 'admin'
+        });
+        const res = await addgame("2022-05-22","20:00","Midtjylland","vejle","Parken","admin124483");
+        expect(res.statusCode).toEqual(401);
+    });
+    test("add game isn't created successfully - without login by representative", async () => {
+        const res = await addgame("2022-05-22","20:00","Midtjylland","vejle","Parken","admin124483");
+        expect(res.statusCode).toEqual(401);
+    });
 });
-
-
-// describe("Login and couldn't Login again with the same username", () => {
-//     test('should create a new post', async () => {
-//         const user = await log.loginTest("roi84222340067","shiba@inu3");
-//         if(user.statusCode === 200){
-//             const res = await log.loginTest("roi84222340067","shiba@inu3");
-//             expect(res.statusCode).toEqual(406)
-//         }
-//     })
-// })
