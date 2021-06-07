@@ -15,8 +15,8 @@ async function logoutTest(){
 }
 
 //test for sucssues logout
-describe("should logout user", () => {
-    test('should create a new post', async () => {
+describe("logout tests", () => {
+    test('Login and then logout', async () => {
         await sessionTest.post("/Login").send({
             username: 'admdddin',
             password: 'admin'
