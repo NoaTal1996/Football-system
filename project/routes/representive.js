@@ -80,7 +80,7 @@ router.get("/getAllReferees", async (req, res, next)=> {
 
 router.post("/createGameSchedule",async (req, res, next)=>{
     await representive_utils.create_games_schedule(req.body.game_hours,req.body.days, req.body.start_day, req.body.end_day)
-    res.status(200).send("success")
+    res.status(201).send("success")
 })
 
 
