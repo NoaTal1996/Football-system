@@ -32,4 +32,5 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
-exports.findClassDays = findClassDays
+exports.findClassDays = findClassDays;
+exports.getDates = getDates;

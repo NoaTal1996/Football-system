@@ -1,27 +1,6 @@
-const app = require('../../main');
-let session = require('supertest-session');
-const representive_utils = require("../../routes/utils/representive_utils");
 const DButils = require("../../routes/utils/DButils");
-jest.setTimeout(100000);
-
-let sessionTest = null;
-beforeEach(function(){
-    sessionTest = session(app);
-});
-
-// async function addgame(gameday, gametime, Hometeam, Awayteam, Field, Referee){
-//     const res = await sessionTest
-//         .post("/users/representive/addGame")
-//         .send({
-//             date: gameday,
-//             time: gametime,
-//             hometeam: Hometeam,
-//             awayteam: Awayteam,
-//             field: Field,
-//             referee: Referee
-//         });
-//     return res;
-// }
+const representive_utils = require("../../routes/utils/representive_utils");
+jest.setTimeout(10000000);
 
 describe('schedule games', () => {
     test('check insert_game function', async () => {
@@ -38,7 +17,6 @@ describe('schedule games', () => {
             `SELECT * FROM Games
             WHERE GameDay = '2022-05-22' and GameTime = '20:00'
             and field = 'Parken' and referee = 'noa123'`);
-        console.log(res);
         expect(res.length).toBe(1);
     });
 });
