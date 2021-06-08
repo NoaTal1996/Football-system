@@ -14,8 +14,8 @@ describe('Integration tests for logout', () => {
     test('Register and Login and then Logout', async () => {
         await register.registerTest("4567", "Roi", "Reinshtein", "Israel", "shiba@inu3", "example@gmail.com", "https://res.cloudinary.com/db8c94xbz/image/upload/v1620751152/shiba_kufmdi.jpg", "judge");
         await sessionTest.post("/Login").send({
-            username: '4567',
-            password: 'shiba@inu3'
+            username: 'admin',
+            password: 'admin'
         });
         const res = await logout.logoutTest();
         expect(res.statusCode).toEqual(200);
